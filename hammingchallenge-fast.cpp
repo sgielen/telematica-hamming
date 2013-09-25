@@ -110,7 +110,8 @@ int main(int argc, char *argv[]) {
         }
         if(enough_distance) {
             longestList.push_back(ci);
-            get_ostream(start_time) << "Found a new longest list: " << longestList << std::endl;
         }
     } while(++ci);
+
+    get_ostream(start_time) << "Found the longest list: " << longestList << std::endl;
 }
