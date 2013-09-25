@@ -33,6 +33,10 @@ struct CodewordGenerator {
         assert(bitLength > 0);
     }
 
+    CodewordGenerator(Codeword start) : codeword(start) {
+        assert(codeword.size() > 0);
+    }
+
     bool operator++() {
         bool isLast = false;
         incrementCodeword(codeword, isLast);
@@ -108,6 +112,9 @@ int main(int argc, char *argv[]) {
         // cl is a list of selected code words with at least given hamming distance
         // for the depth-first search, find the next ones
         CodewordGenerator ci(bitLength);
+        if(cl.size() > 0) {
+            ci = CodewordGenerator(cl.back());
+        }
         do {
             bool enough_distance = true;
             for(Codeword &cw : cl) {
