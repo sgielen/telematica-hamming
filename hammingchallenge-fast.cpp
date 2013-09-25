@@ -29,7 +29,16 @@ std::ostream &operator<<(std::ostream &os, const CodewordList &cwl) {
 //! A code word generator to help iterate through all code words
 struct CodewordGenerator {
     CodewordGenerator(int bitLength) : codeword(bitLength, 0) {
-        assert(bitLength > 0);
+    }
+
+    float progress() const {
+        float progress = 0;
+        float adder = 1;
+        for(int i = 0; i < codeword.size(); ++i) {
+            adder /= 2;
+            if(codeword[i]) progress += adder;
+        }
+        return progress;
     }
 
     bool operator++() {
@@ -100,7 +109,13 @@ int main(int argc, char *argv[]) {
 
     CodewordList longestList;
     CodewordGenerator ci(bitLength);
+    int progress = 0;
     do {
+        if(++progress == 10000) {
+            progress = 0;
+            printf("\r%2.02f%%     ", ci.progress() * 100);
+            fflush(stdout);
+        }
         bool enough_distance = true;
         for(unsigned i = 0; i < longestList.size(); ++i) {
             if(!hammingDistanceAtLeast(hammingDistance, ci, longestList[i])) {
@@ -113,5 +128,6 @@ int main(int argc, char *argv[]) {
         }
     } while(++ci);
 
+    std::cout << std::endl;
     get_ostream(start_time) << "Found the longest list: " << longestList << std::endl;
 }
