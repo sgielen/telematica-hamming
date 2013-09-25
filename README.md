@@ -7,7 +7,8 @@ solution that guarantees to find the optimal solution. The second is an
 iterative solution that seems to find the optimal one but I can't prove it.
 See below for a longer explanation.
 
-To compile (use a `$CXX` with C++11 support for the first version):
+To compile (use a `$CXX` with C++11 support for the first version; `g++` 4.8
+and `clang++` 3.2 will do):
 
     $CXX \
       -std=c++11 -O3 \
