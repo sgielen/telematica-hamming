@@ -1,2 +1,4 @@
 hammingchallenge
+hammingchallenge-fast
 *.dSYM
+.DS_Store
